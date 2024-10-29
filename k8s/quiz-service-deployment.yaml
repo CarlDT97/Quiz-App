@@ -1,0 +1,36 @@
+# quiz-service-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quiz-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quiz-service
+  template:
+    metadata:
+      labels:
+        app: quiz-service
+    spec:
+      containers:
+        - name: quiz-service
+          image: carldahlqvist/quiz-service:latest
+          ports:
+            - containerPort: 5001
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo-service:27017/quizdb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quiz-service
+spec:
+  type: ClusterIP
+  selector:
+    app: quiz-service
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001

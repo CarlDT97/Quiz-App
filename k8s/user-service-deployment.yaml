@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: carldahlqvist/user-service:latest
+          ports:
+            - containerPort: 5002
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo-service:27017/userdb
+            - name: NODE_ENV
+              value: k8s  # Set to 'k8s' for Kubernetes
+            - name: JWT_SECRET
+              value: 'your_super_secret_key'  # Set your JWT secret here
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  type: ClusterIP
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002

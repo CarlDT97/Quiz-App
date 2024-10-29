@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  user-service:
+    build:
+      context: ./user-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/userdb
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mongo
+
+  quiz-service:
+    build:
+      context: ./quiz-service
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/quizdb
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "5003:5003" # Adjust the port as needed
+    depends_on:
+      - user-service
+      - quiz-service
+
+  frontend-service:
+    build:
+      context: ./frontend-service
+    ports:
+      - "3000:3000" # Adjust the port as needed
+    depends_on:
+      - api-gateway
+
+volumes:
+  mongo_data:
