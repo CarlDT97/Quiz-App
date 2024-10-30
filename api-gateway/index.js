@@ -20,7 +20,7 @@ app.use("/api/quizzes", async (req, res) => {
   try {
     const response = await axios({
       method: req.method,
-      url: `http://quiz-service:5001/api/quizzes${req.path}`, // Use service name instead of localhost
+      url: `http://quiz-service:5001/api/quizzes${req.path}`,
       data: req.body,
     });
     res.status(response.status).send(response.data);
@@ -41,7 +41,7 @@ app.use("/api/users", async (req, res) => {
   try {
     const response = await axios({
       method: req.method,
-      url: `http://user-service:5002/api/users${req.path}`, // Use service name instead of localhost
+      url: `http://user-service:5002/api/users${req.path}`,
       data: req.body,
     });
     res.status(response.status).send(response.data);

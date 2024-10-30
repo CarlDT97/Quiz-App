@@ -10,15 +10,15 @@ const quizSchema = new mongoose.Schema({
     required: true,
   },
   host: {
-    type: [String], // Array of strings for multiple hosts
+    type: [String], 
     required: true,
   },
   dateTime: {
-    type: Date, // Store the full date and time
+    type: Date, 
     required: true,
   },
   duration: {
-    type: String, // Assuming you want to store duration as a string, e.g., "2 hours"
+    type: String,
     required: true,
   },
   theme: {
