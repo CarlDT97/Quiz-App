@@ -2,7 +2,10 @@
     
 
 Quiz App is a web application designed for posting and discovering quizzes. Its purpose is to provide quiz enthusiasts with a centralized source for finding quizzes in their city, while also allowing quiz hosts, such as restaurants or event organizers, to share details about the location, theme, time, and other relevant information. The idea is to have a page where users can view upcoming quizzes, as well as the option to sign in and add new quizzes.
+
+
 ![System Overview](k8s/systemOverview.png)
+
 
 The quiz application is built using microservices, comprising four core services and a database. The frontend service allows users to interact with the application's functionalities, such as viewing quizzes, creating quizzes, logging in and out, and creating accounts. The API Gateway manages traffic for various requests and can be expanded in the future to include additional routes to different microservices. For example, it will route user-related requests to the user service, which handles actions like logging in, logging out, and account creation. In future expansions, this user service may be connected to a separate database and handle other user-related behaviors. Similarly, the quiz service is responsible for processing quiz-related requests, such as retrieving and creating quizzes. Future versions of this service may include additional functionalities, like retrieving quizzes from different categories and accessing specific items.
 
