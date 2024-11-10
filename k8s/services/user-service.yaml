@@ -1,0 +1,21 @@
+# user-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  type: ClusterIP
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-service-secrets
+type: Opaque
+data:
+  jwt-secret: bXlfc3VwZXJfc2VjcmV0X2tleQ==
